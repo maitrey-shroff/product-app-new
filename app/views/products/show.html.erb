@@ -1,0 +1,32 @@
+<div class="container">
+
+  <div class="row">
+
+    <div class="col-xs-12 col-md-6 col-lg-6">
+      <div class="jumbotron">
+        <div class="center_everything">
+          <h2><%= @product.product_name %></h2>
+          <p><%= @product.description %></p>
+          <p><%= @product.supplier.supplier_name %></p>
+          <% @product.images.each do |image| %>
+            <img src= <%= image.image_1 %>>
+          <% end %>
+          <% @product.categories.each do |category| %>
+            <p><%= category.category_name %></p>
+          <% end %>
+          <p><a class="btn btn-primary btn-md" href="#" role="button"><%= number_to_currency(@product.price) %></a></p>
+          <p><a class="btn btn-primary btn-md" href= "/products/<%= @product.id %>/edit" role="button">Edit Product</a></p>
+          <%= button_to "Delete Item", "/products/#{@product.id}/", method: :delete %>
+          <%= form_tag '/carted_products', method: :post do  %>
+            <%= label_tag :quantity %>
+            <%= text_field_tag :quantity, nil, :class => 'form-control', placeholder:"Enter quantity" %>
+            <%= hidden_field_tag :product_id, @product.id %>
+            <button type="submit" class="btn btn-primary">Add To Cart</button>
+          <% end %>
+        </div>
+      </div> <!-- jtron -->
+    </div> <!-- col -->
+
+  </div> <!-- row -->
+
+</div> <!-- container -->
